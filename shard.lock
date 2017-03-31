@@ -16,3 +16,7 @@ shards:
     github: kemalcr/spec-kemal
     commit: 05cc810f5f5ed890f16bcb06461000b97c625959
 
+  spec2:
+    github: waterlink/spec2.cr
+    version: 0.10.0
+
