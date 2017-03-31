@@ -1,27 +1,23 @@
-# spotippos
+# Desafio Spotippos
 
-TODO: Write a description here
+## Racional
 
-## Installation
+### Mudança no payload de cadastro
 
-TODO: Write installation instructions here
+O arquivo `properties.json` fornecido não contém as propriedades "x" e "y",
+conforme as [instruções](https://github.com/VivaReal/code-challenge/blob/master/backend.md).
+Em vez disso, ele contém as propriedades "lat" e "long". Como acredito que esses
+nomes são semanticamente mais relevantes do que "x" e "y", tomei a liberdade de
+alterar o nome destas propriedades no payload de cadastro.
 
-## Usage
+Acredito que essa diferença não faça parte do desafio e tenha sido uma questão
+que passou despercebida na elaboração dele, então, abri um pull request
+corrigindo essa informação e o payload de cadastro nas instruções do desafio.
 
-TODO: Write usage instructions here
+## Instalação
 
-## Development
+## Uso
 
-TODO: Write development instructions here
+## Autor
 
-## Contributing
-
-1. Fork it ( https://github.com/[your-github-name]/spotippos/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
-
-## Contributors
-
-- [[your-github-name]](https://github.com/[your-github-name]) Bruno Assis - creator, maintainer
+[Bruno Assis](https://github.com/[BrunoAssis])
