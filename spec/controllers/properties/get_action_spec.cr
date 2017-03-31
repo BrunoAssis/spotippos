@@ -1,7 +1,7 @@
-require "../spec_helper"
+require "../../spec_helper"
 
-module Spotippos
-  Spec2.describe "GET /properties/{id}" do
+module Spotippos::Controllers::Properties
+  Spec2.describe GetAction do
     context "when the id is valid" do
       context "and the property exists" do
         let(new_property) do
