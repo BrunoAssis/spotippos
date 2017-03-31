@@ -8,11 +8,10 @@ before_all do |env|
   env.response.content_type = "application/json"
 end
 
-def handle_error(env)
-  {"error" => env.get("error")}.to_json
+def respond_with_error(env, status_code, error_message)
+  env.response.status_code = status_code
+  env.response.print({"error" => error_message}.to_json)
+  env.response.close
 end
-
-error 400 { |env| handle_error(env) }
-error 404 { |env| handle_error(env) }
 
 Kemal.run
