@@ -5,7 +5,7 @@ require "./spotippos/entities/*"
 require "./spotippos/repositories/*"
 
 before_all do |env|
-  env.response.content_type = "application/json"
+  env.response.content_type = "application/json; charset=utf-8"
 end
 
 def respond_with_error(env, status_code, error_message)
