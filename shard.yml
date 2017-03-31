@@ -1,0 +1,13 @@
+name: spotippos
+version: 0.1.0
+
+authors:
+  - Bruno Assis <brunoassis@gmail.com>
+
+targets:
+  spotippos:
+    main: src/spotippos.cr
+
+crystal: 0.21.1
+
+license: MIT
