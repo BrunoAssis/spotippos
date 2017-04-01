@@ -20,8 +20,8 @@ module Spotippos::Controllers::Properties
             title: payload["title"].as_s,
             price: payload["price"].as_i64,
             description: payload["description"].as_s,
-            lat: payload["lat"].as_i64,
-            long: payload["long"].as_i64,
+            x: payload["x"].as_i64,
+            y: payload["y"].as_i64,
             beds: payload["beds"].as_i64,
             baths: payload["baths"].as_i64,
             square_meters: payload["squareMeters"].as_i64)

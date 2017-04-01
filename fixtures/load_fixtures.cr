@@ -36,8 +36,8 @@ module Fixtures
         title: p["title"].as_s,
         price: p["price"].as_i64,
         description: p["description"].as_s,
-        lat: p["lat"].as_i64,
-        long: p["long"].as_i64,
+        x: p["lat"].as_i64,
+        y: p["long"].as_i64,
         beds: p["beds"].as_i64,
         baths: p["baths"].as_i64,
         square_meters: p["squareMeters"].as_i64

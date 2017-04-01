@@ -26,29 +26,24 @@ no RSpec.
 
 O motivo de eu ter usado essa linguagem é que eu queria escrever alguma coisa
 nela e, bem, o teste veio a calhar :P Acho que não rolaria usar em produção pois
-o ecossistema ainda é bastante jovem.
+o ecossistema ainda é bastante jovem, a documentação é pouca e as mensagens de
+erro ainda estão muito crípticas.
 
 ### Camada de acesso a dados
 
 No repositório da aplicação estou acessando uma variável de classe (`@@storage`)
-que representa a persistência dos dados.
+que representa a persistência dos dados. Tentei representar um storage externo,
+e a ideia é que caso fosse usado num cenário real, ele fosse facilmente
+substituível.
+
+Ao iniciar o projeto, uso o método `Fixtures.load_fixtures` para carregar os
+dados providos. Não criei opções para passar arquivos de input diferentes, mas
+é uma modificação trivial se precisar ser feito.
 
 ### Sobre os tipos de variáveis
 
 Por simplicidade, estou assumindo que todos os dados numéricos do imóvel são
 inteiros, apesar de alguns conceitualmente poderem ser decimais "no mundo real".
-
-### Mudança no payload de cadastro
-
-O arquivo `properties.json` fornecido não contém as propriedades "x" e "y",
-conforme as [instruções](https://github.com/VivaReal/code-challenge/blob/master/backend.md).
-Em vez disso, ele contém as propriedades "lat" e "long". Como acredito que esses
-nomes são semanticamente mais relevantes do que "x" e "y", tomei a liberdade de
-alterar o nome destas propriedades no payload de cadastro.
-
-Acredito que essa diferença não faça parte do desafio e tenha sido uma questão
-que passou despercebida na elaboração dele, então, abri um pull request
-corrigindo essa informação e o payload de cadastro nas instruções do desafio.
 
 ## Autor
 

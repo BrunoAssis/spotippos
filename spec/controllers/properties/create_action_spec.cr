@@ -37,8 +37,8 @@ module Spotippos::Controllers::Properties
       let(payload) do
         <<-JSON
         {
-          "lat": 400,
-          "long": 400,
+          "x": 400,
+          "y": 400,
           "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
           "price": 1250000,
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -52,8 +52,8 @@ module Spotippos::Controllers::Properties
       let(new_property_json) do
         <<-JSON
         {
-          "lat": 400,
-          "long": 400,
+          "x": 400,
+          "y": 400,
           "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
           "price": 1250000,
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -74,8 +74,8 @@ module Spotippos::Controllers::Properties
         new_property_fields = JSON.parse(new_property_json)
 
         expect(response_fields["id"].as_i64).to_be > 0_i64
-        expect(response_fields["lat"]).to eq(new_property_fields["lat"])
-        expect(response_fields["long"]).to eq(new_property_fields["long"])
+        expect(response_fields["x"]).to eq(new_property_fields["x"])
+        expect(response_fields["y"]).to eq(new_property_fields["y"])
         expect(response_fields["title"]).to eq(new_property_fields["title"])
         expect(response_fields["description"]).to eq(new_property_fields["description"])
         expect(response_fields["beds"]).to eq(new_property_fields["beds"])
@@ -117,7 +117,7 @@ module Spotippos::Controllers::Properties
         end
 
         it "returns an error message" do
-          error_message = "Bad Request: {description} missing, {lat} missing, {long} missing"
+          error_message = "Bad Request: {description} missing, {x} missing, {y} missing"
           error_json = {"error" => error_message}.to_json
           expect(response.body).to eq(error_json)
         end
@@ -128,8 +128,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 333,
-              "long": 444,
+              "x": 333,
+              "y": 444,
               "title": "",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -154,8 +154,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 333,
-              "long": 444,
+              "x": 333,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "",
@@ -180,8 +180,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 333,
-              "long": 444,
+              "x": 333,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 0,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -202,12 +202,12 @@ module Spotippos::Controllers::Properties
           end
         end
 
-        context "and its latitude is invalid" do
+        context "and its X-coordinate is invalid" do
           let(payload) do
             <<-JSON
             {
-              "lat": 1500,
-              "long": 444,
+              "x": 1500,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -223,17 +223,17 @@ module Spotippos::Controllers::Properties
           end
 
           it "returns an error message" do
-            error_json = {"error" => "Bad Request: {lat} must be between 0 and 1400"}.to_json
+            error_json = {"error" => "Bad Request: {x} must be between 0 and 1400"}.to_json
             expect(response.body).to eq(error_json)
           end
         end
 
-        context "and its longitude is invalid" do
+        context "and its Y-coordinate is invalid" do
           let(payload) do
             <<-JSON
             {
-              "lat": 222,
-              "long": 1100,
+              "x": 222,
+              "y": 1100,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -249,7 +249,7 @@ module Spotippos::Controllers::Properties
           end
 
           it "returns an error message" do
-            error_json = {"error" => "Bad Request: {long} must be between 0 and 1000"}.to_json
+            error_json = {"error" => "Bad Request: {y} must be between 0 and 1000"}.to_json
             expect(response.body).to eq(error_json)
           end
         end
@@ -258,8 +258,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 222,
-              "long": 444,
+              "x": 222,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -284,8 +284,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 222,
-              "long": 444,
+              "x": 222,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -310,8 +310,8 @@ module Spotippos::Controllers::Properties
           let(payload) do
             <<-JSON
             {
-              "lat": 222,
-              "long": 444,
+              "x": 222,
+              "y": 444,
               "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
               "price": 1250000,
               "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
