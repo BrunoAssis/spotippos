@@ -1,12 +1,14 @@
 require "../entities/property"
 require "../services/province_finder_service"
+require "../services/property_finder_service"
 require "../repositories/property_repository"
 require "../entities/geographic_point"
 
 module Spotippos::Services
   class PropertyService
     def initialize(@property_repository : Repositories::PropertyRepository,
-                   @province_finder_service : ProvinceFinderService)
+                   @province_finder_service : ProvinceFinderService,
+                   @property_finder_service : PropertyFinderService)
     end
 
     def build(id : Int64 | Nil,
@@ -18,17 +20,15 @@ module Spotippos::Services
               beds : Int64,
               baths : Int64,
               square_meters : Int64)
-      @x = x
-      @y = y
       Entities::Property.new(id: id,
         title: title,
         price: price,
         description: description,
-        x: @x.as(Int64),
-        y: @y.as(Int64),
+        x: x,
+        y: y,
         beds: beds,
         baths: baths,
-        provinces: find_province_names,
+        provinces: find_province_names(x, y),
         square_meters: square_meters)
     end
 
@@ -36,8 +36,14 @@ module Spotippos::Services
       @property_repository.insert(a_property)
     end
 
-    private def find_province_names
-      point = Entities::GeographicPoint.new(@x.as(Int64), @y.as(Int64))
+    def search(ax, ay, bx, by)
+      upperLeftPoint = Entities::GeographicPoint.new(ax, ay)
+      bottomRightPoint = Entities::GeographicPoint.new(bx, by)
+      @property_finder_service.in_area(upperLeftPoint, bottomRightPoint)
+    end
+
+    private def find_province_names(x, y)
+      point = Entities::GeographicPoint.new(x, y)
       @province_finder_service.in_point(point)
                               .map { |province| province.name }
     end
