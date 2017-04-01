@@ -17,6 +17,22 @@ module Spotippos::Controllers::Properties
             provinces: ["Gode", "Ruja"],
             squareMeters: 100)
         end
+        let(new_property_json) do
+          <<-JSON
+            {
+              "id": 10000,
+              "title": "Imóvel código 10000, com 1 quarto e 1 banheiro",
+              "price": 300000,
+              "description": "Lorem ipsum",
+              "lat": 500,
+              "long": 1000,
+              "beds": 1,
+              "baths": 1,
+              "provinces": ["Gode", "Ruja"],
+              "squareMeters": 100
+            }
+          JSON
+        end
         let(repository) { Repositories::PropertyRepository.new }
 
         before do
@@ -24,12 +40,12 @@ module Spotippos::Controllers::Properties
           get "/properties/#{new_property.id}"
         end
 
-        it "returns 200" do
+        it "returns 200 - OK" do
           expect(response.status_code).to eq(200)
         end
 
         it "returns the property as a JSON" do
-          expect(response.body).to eq(new_property.to_json)
+          expect(JSON.parse(response.body)).to eq(JSON.parse(new_property_json))
         end
       end
 
@@ -38,7 +54,7 @@ module Spotippos::Controllers::Properties
           get "/properties/9999"
         end
 
-        it "returns 404" do
+        it "returns 404 - Not Found" do
           expect(response.status_code).to eq(404)
         end
 
@@ -54,7 +70,7 @@ module Spotippos::Controllers::Properties
         get "/properties/invalid_id"
       end
 
-      it "returns 400" do
+      it "returns 400 - Bad Request" do
         expect(response.status_code).to eq(400)
       end
 
