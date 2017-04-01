@@ -1,0 +1,53 @@
+require "../src/spotippos/entities/province"
+require "../src/spotippos/entities/geographic_point"
+require "../src/spotippos/repositories/province_repository"
+require "../src/spotippos/repositories/property_repository"
+
+module Fixtures
+  def self.load_fixtures
+    load_provinces_into_db
+    load_properties_into_db
+  end
+
+  private def self.load_provinces_into_db
+    provinces = JSON.parse(File.read("fixtures/provinces.json"))
+
+    repository = Spotippos::Repositories::ProvinceRepository.new
+    provinces.each do |name, attributes|
+      boundaries = attributes["boundaries"]
+      upperLeft = boundaries["upperLeft"]
+      bottomRight = boundaries["bottomRight"]
+      geoPointUL = Spotippos::Entities::GeographicPoint.new(upperLeft["x"].as_i64, upperLeft["y"].as_i64)
+      geoPointBR = Spotippos::Entities::GeographicPoint.new(bottomRight["x"].as_i64, bottomRight["y"].as_i64)
+
+      new_province = Spotippos::Entities::Province.new(name.as_s, geoPointUL, geoPointBR)
+      repository.insert(new_province)
+    end
+  end
+
+  private def self.load_properties_into_db
+    province_repository = Spotippos::Repositories::ProvinceRepository.new
+    provinces = province_repository.all
+
+    properties_json = JSON.parse(File.read("fixtures/properties.json"))
+    properties = properties_json["properties"]
+
+    province_finder_service = Spotippos::Services::ProvinceFinderService.new(provinces)
+    property_service = Spotippos::Services::PropertyService.new(province_finder_service)
+    property_repository = Spotippos::Repositories::PropertyRepository.new
+    properties.each do |p|
+      new_property = property_service.create(
+        id: p["id"].as_i64,
+        title: p["title"].as_s,
+        price: p["price"].as_i64,
+        description: p["description"].as_s,
+        lat: p["lat"].as_i64,
+        long: p["long"].as_i64,
+        beds: p["beds"].as_i64,
+        baths: p["baths"].as_i64,
+        square_meters: p["squareMeters"].as_i64
+      )
+      property_repository.insert(new_property)
+    end
+  end
+end
