@@ -1,10 +1,12 @@
+require "../controller_action"
+
 module Spotippos::Controllers::Properties
-  class GetAction
-    def call(env)
+  class GetAction < ControllerAction
+    def call
       begin
-        id = env.params.url["id"].to_i
+        id = @env.params.url["id"].to_i
       rescue ArgumentError
-        respond_with_error(env, 400, "Bad Request: {id} must be an integer.")
+        respond_with_error(@env, 400, "Bad Request: {id} must be an integer.")
       end
 
       repository = Repositories::PropertyRepository.new
@@ -12,7 +14,7 @@ module Spotippos::Controllers::Properties
       if found_property
         response = found_property
       else
-        respond_with_error(env, 404, "Not Found: Property (#{id}) doesn't exist.")
+        respond_with_error(@env, 404, "Not Found: Property (#{id}) doesn't exist.")
       end
 
       response.to_json

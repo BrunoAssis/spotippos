@@ -3,18 +3,15 @@ require "./controllers/properties/get_action"
 require "./controllers/properties/create_action"
 
 module Spotippos
-  index_action = Controllers::Properties::IndexAction.new
   get "/properties" do |env|
-    index_action.call(env)
+    Controllers::Properties::IndexAction.new(env).call
   end
 
-  get_action = Controllers::Properties::GetAction.new
   get "/properties/:id" do |env|
-    get_action.call(env)
+    Controllers::Properties::GetAction.new(env).call
   end
 
-  create_action = Controllers::Properties::CreateAction.new
   post "/properties" do |env|
-    create_action.call(env)
+    Controllers::Properties::CreateAction.new(env).call
   end
 end
