@@ -1,6 +1,7 @@
 require "../controller_action"
 require "../../validators/property_payload_validator"
 require "../../services/province_finder_service"
+require "../../services/property_service"
 require "../../repositories/property_repository"
 require "../../repositories/province_repository"
 
@@ -21,10 +22,9 @@ module Spotippos::Controllers::Properties
           provinces = province_repository.all
 
           province_finder_service = Services::ProvinceFinderService.new(provinces)
-          provinces = province_finder_service.in_point(Entities::GeographicPoint.new(lat, long))
-          province_names = provinces.map { |province| province.name }
+          property_service = Services::PropertyService.new(province_finder_service)
 
-          new_property = Entities::Property.new(
+          new_property = property_service.create(
             id: nil,
             title: payload["title"].as_s,
             price: payload["price"].as_i64,
@@ -33,8 +33,7 @@ module Spotippos::Controllers::Properties
             long: long,
             beds: payload["beds"].as_i64,
             baths: payload["baths"].as_i64,
-            square_meters: payload["squareMeters"].as_i64,
-            provinces: province_names)
+            square_meters: payload["squareMeters"].as_i64)
 
           property_repository = Repositories::PropertyRepository.new
           inserted_property = property_repository.insert(new_property)

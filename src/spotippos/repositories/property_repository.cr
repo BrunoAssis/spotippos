@@ -1,3 +1,5 @@
+require "../entities/property"
+
 module Spotippos::Repositories
   class PropertyRepository
     @@storage = {} of Int64 => Entities::Property

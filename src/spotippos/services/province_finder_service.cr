@@ -9,7 +9,7 @@ module Spotippos::Services
       @provinces.select { |province| in_bounds?(point, province) }
     end
 
-    def in_bounds?(point, province)
+    private def in_bounds?(point, province)
       province.upperLeftBoundary.x < point.x &&
         province.bottomRightBoundary.x > point.x &&
         province.upperLeftBoundary.y > point.y &&
