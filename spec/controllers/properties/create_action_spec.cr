@@ -21,13 +21,12 @@ module Spotippos::Controllers::Properties
           "baths": 3,
           "squareMeters": 210
         }
-      JSON
+        JSON
       end
 
       let(new_property_json) do
         <<-JSON
         {
-          "id": 1
           "lat": 222,
           "long": 444,
           "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
@@ -61,7 +60,7 @@ module Spotippos::Controllers::Properties
             "baths": 3,
             "squareMeters": 210
           }
-        JSON
+          JSON
         end
 
         it "returns 400 - Bad Request" do

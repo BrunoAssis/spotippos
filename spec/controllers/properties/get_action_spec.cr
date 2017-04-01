@@ -15,7 +15,7 @@ module Spotippos::Controllers::Properties
             beds: 1,
             baths: 1,
             provinces: ["Gode", "Ruja"],
-            squareMeters: 100)
+            square_meters: 100)
         end
         let(new_property_json) do
           <<-JSON
