@@ -2,6 +2,31 @@ require "../../spec_helper"
 
 module Spotippos::Controllers::Properties
   Spec2.describe CreateAction do
+    before_all do
+      bigga_province = Entities::Province.new(
+        name: "Bigga",
+        upperLeftBoundary: Entities::GeographicPoint.new(1, 1000),
+        bottomRightBoundary: Entities::GeographicPoint.new(1000, 1)
+      )
+
+      smalla_province = Entities::Province.new(
+        name: "Smalla",
+        upperLeftBoundary: Entities::GeographicPoint.new(1001, 1002),
+        bottomRightBoundary: Entities::GeographicPoint.new(1002, 1001)
+      )
+
+      intersecta_province = Entities::Province.new(
+        name: "Intersecta",
+        upperLeftBoundary: Entities::GeographicPoint.new(300, 500),
+        bottomRightBoundary: Entities::GeographicPoint.new(500, 300)
+      )
+
+      province_repository = Repositories::ProvinceRepository.new
+      province_repository.insert(bigga_province)
+      province_repository.insert(smalla_province)
+      province_repository.insert(intersecta_province)
+    end
+
     before do
       post "/properties",
         headers: HTTP::Headers{"Content-Type" => "application/json"},
@@ -12,8 +37,8 @@ module Spotippos::Controllers::Properties
       let(payload) do
         <<-JSON
         {
-          "lat": 222,
-          "long": 444,
+          "lat": 400,
+          "long": 400,
           "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
           "price": 1250000,
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -27,14 +52,14 @@ module Spotippos::Controllers::Properties
       let(new_property_json) do
         <<-JSON
         {
-          "lat": 222,
-          "long": 444,
+          "lat": 400,
+          "long": 400,
           "title": "Imóvel código 1, com 5 quartos e 4 banheiros",
           "price": 1250000,
           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           "beds": 4,
           "baths": 3,
-          "provinces": ["Gode", "Ruja"],
+          "provinces": ["Bigga", "Intersecta"],
           "squareMeters": 210
         }
         JSON
