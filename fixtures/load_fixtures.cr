@@ -26,17 +26,12 @@ module Fixtures
   end
 
   private def self.load_properties_into_db
-    province_repository = Spotippos::Repositories::ProvinceRepository.new
-    provinces = province_repository.all
-
     properties_json = JSON.parse(File.read("fixtures/properties.json"))
     properties = properties_json["properties"]
 
-    province_finder_service = Spotippos::Services::ProvinceFinderService.new(provinces)
-    property_service = Spotippos::Services::PropertyService.new(province_finder_service)
-    property_repository = Spotippos::Repositories::PropertyRepository.new
+    property_service = Spotippos::Containers::DomainContainer.default_property_service
     properties.each do |p|
-      new_property = property_service.create(
+      new_property = property_service.build(
         id: p["id"].as_i64,
         title: p["title"].as_s,
         price: p["price"].as_i64,
@@ -47,7 +42,7 @@ module Fixtures
         baths: p["baths"].as_i64,
         square_meters: p["squareMeters"].as_i64
       )
-      property_repository.insert(new_property)
+      property_service.create(new_property)
     end
   end
 end

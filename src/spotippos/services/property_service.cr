@@ -1,20 +1,23 @@
 require "../entities/property"
+require "../services/province_finder_service"
+require "../repositories/property_repository"
 require "../entities/geographic_point"
 
 module Spotippos::Services
   class PropertyService
-    def initialize(@province_finder_service : ProvinceFinderService)
+    def initialize(@property_repository : Repositories::PropertyRepository,
+                   @province_finder_service : ProvinceFinderService)
     end
 
-    def create(id : Int64 | Nil,
-               title : String,
-               price : Int64,
-               description : String,
-               lat : Int64,
-               long : Int64,
-               beds : Int64,
-               baths : Int64,
-               square_meters : Int64)
+    def build(id : Int64 | Nil,
+              title : String,
+              price : Int64,
+              description : String,
+              lat : Int64,
+              long : Int64,
+              beds : Int64,
+              baths : Int64,
+              square_meters : Int64)
       @lat = lat
       @long = long
       Entities::Property.new(id: id,
@@ -27,6 +30,10 @@ module Spotippos::Services
         baths: baths,
         provinces: find_province_names,
         square_meters: square_meters)
+    end
+
+    def create(a_property)
+      @property_repository.insert(a_property)
     end
 
     private def find_province_names
