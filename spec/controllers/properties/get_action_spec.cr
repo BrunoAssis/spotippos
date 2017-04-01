@@ -14,6 +14,7 @@ module Spotippos::Controllers::Properties
             long: 1_000,
             beds: 1,
             baths: 1,
+            provinces: ["Gode", "Ruja"],
             squareMeters: 100)
         end
         let(repository) { Repositories::PropertyRepository.new }

@@ -9,6 +9,7 @@ module Spotippos::Entities
       long: Int32,
       beds: Int32,
       baths: Int32,
+      provinces: Array(String),
       squareMeters: Int32
     )
 
@@ -20,6 +21,7 @@ module Spotippos::Entities
                    @long : Int32,
                    @beds : Int32,
                    @baths : Int32,
+                   @provinces : Array(String),
                    @squareMeters : Int32)
     end
   end
