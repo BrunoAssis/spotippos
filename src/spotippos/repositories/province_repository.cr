@@ -1,6 +1,6 @@
 module Spotippos::Repositories
   class ProvinceRepository
-    @@storage = {} of String => Entities::Province
+    @@storage = Hash(String, Entities::Province).new
 
     def get(name)
       if @@storage.has_key?(name)
@@ -15,6 +15,10 @@ module Spotippos::Repositories
 
     def all
       @@storage.values
+    end
+
+    def clear
+      @@storage = Hash(String, Entities::Province).new
     end
   end
 end

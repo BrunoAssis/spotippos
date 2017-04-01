@@ -1,7 +1,7 @@
-require "./common_json_validator"
+require "./common_validator"
 
 module Spotippos::Validators
-  class PropertyPayloadValidator < CommonJSONValidator
+  class PropertyPayloadValidator < CommonValidator
     protected def validate
       @errors << blank_error("title")
       @errors << blank_error("description")

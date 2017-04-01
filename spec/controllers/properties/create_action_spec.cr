@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 module Spotippos::Controllers::Properties
   Spec2.describe CreateAction do
-    before_all do
+    before do
       bigga_province = Entities::Province.new(
         name: "Bigga",
         upperLeftBoundary: Entities::GeographicPoint.new(1, 1000),
@@ -11,8 +11,8 @@ module Spotippos::Controllers::Properties
 
       smalla_province = Entities::Province.new(
         name: "Smalla",
-        upperLeftBoundary: Entities::GeographicPoint.new(1001, 1002),
-        bottomRightBoundary: Entities::GeographicPoint.new(1002, 1001)
+        upperLeftBoundary: Entities::GeographicPoint.new(1001, 900),
+        bottomRightBoundary: Entities::GeographicPoint.new(1002, 901)
       )
 
       intersecta_province = Entities::Province.new(
@@ -22,6 +22,7 @@ module Spotippos::Controllers::Properties
       )
 
       province_repository = Repositories::ProvinceRepository.new
+      province_repository.clear
       province_repository.insert(bigga_province)
       province_repository.insert(smalla_province)
       province_repository.insert(intersecta_province)

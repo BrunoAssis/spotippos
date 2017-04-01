@@ -2,21 +2,26 @@ require "../../spec_helper"
 
 module Spotippos::Controllers::Properties
   Spec2.describe GetAction do
+    before do
+      new_property = Entities::Property.new(
+        id: 10_000,
+        title: "Imóvel código 10000, com 1 quarto e 1 banheiro",
+        price: 300_000,
+        description: "Lorem ipsum",
+        x: 500,
+        y: 1_000,
+        beds: 1,
+        baths: 1,
+        provinces: ["Gode", "Ruja"],
+        square_meters: 100)
+
+      repository = Repositories::PropertyRepository.new
+      repository.clear
+      repository.insert(new_property)
+    end
+
     context "when the id is valid" do
       context "and the property exists" do
-        let(new_property) do
-          Entities::Property.new(
-            id: 10_000,
-            title: "Imóvel código 10000, com 1 quarto e 1 banheiro",
-            price: 300_000,
-            description: "Lorem ipsum",
-            x: 500,
-            y: 1_000,
-            beds: 1,
-            baths: 1,
-            provinces: ["Gode", "Ruja"],
-            square_meters: 100)
-        end
         let(new_property_json) do
           <<-JSON
             {
@@ -33,11 +38,9 @@ module Spotippos::Controllers::Properties
             }
           JSON
         end
-        let(repository) { Repositories::PropertyRepository.new }
 
         before do
-          repository.insert(new_property)
-          get "/properties/#{new_property.id}"
+          get "/properties/10000"
         end
 
         it "returns 200 - OK" do

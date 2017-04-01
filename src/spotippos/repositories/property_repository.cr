@@ -2,7 +2,7 @@ require "../entities/property"
 
 module Spotippos::Repositories
   class PropertyRepository
-    @@storage = {} of Int64 => Entities::Property
+    @@storage = Hash(Int64, Entities::Property).new
 
     def get(id)
       if @@storage.has_key?(id)
@@ -17,6 +17,14 @@ module Spotippos::Repositories
 
       id = a_property.id.as(Int64)
       @@storage[id] = a_property unless @@storage.has_key?(id)
+    end
+
+    def all
+      @@storage.values
+    end
+
+    def clear
+      @@storage = Hash(Int64, Entities::Property).new
     end
 
     # Naively generate an unique id
