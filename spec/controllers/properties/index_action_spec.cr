@@ -85,11 +85,11 @@ module Spotippos::Controllers::Properties
         end
 
         it "returns foundProperties > 0" do
-          expect(response_fields["foundProperties"]).to eq(2)
+          expect(response_fields["foundProperties"].as_i64).to eq(2)
         end
         it "returns the properties as a JSON" do
-          expect(response_fields["properties"][0]["id"]).to eq(1)
-          expect(response_fields["properties"][1]["id"]).to eq(2)
+          expect(response_fields["properties"][0]["id"].as_i64).to eq(1)
+          expect(response_fields["properties"][1]["id"].as_i64).to eq(2)
         end
       end
 
@@ -100,7 +100,7 @@ module Spotippos::Controllers::Properties
         let(by) { 2 }
 
         it "returns foundProperties == 0" do
-          expect(response_fields["foundProperties"]).to eq(0)
+          expect(response_fields["foundProperties"].as_i64).to eq(0)
         end
 
         it "returns no properties" do

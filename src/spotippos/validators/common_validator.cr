@@ -34,7 +34,6 @@ module Spotippos::Validators
     end
 
     protected def range_error(fieldname, min_value, max_value)
-      puts("FIELDNAME #{fieldname.inspect}")
       value = @properties[fieldname]?
       return "{#{fieldname}} missing" if value.nil? || value.to_s.blank?
 
