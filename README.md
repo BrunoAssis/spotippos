@@ -118,4 +118,4 @@ teste de forma verbosa, criando todos os objetos e inserindo-os no storage.
 
 ## Autor
 
-[Bruno Assis](https://github.com/[BrunoAssis])
+[Bruno Assis](https://about.me/BrunoAssis)
