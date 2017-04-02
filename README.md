@@ -103,6 +103,19 @@ para atender as requisições web e os JSONs trabalha com Int64 e o
 core da linguagem com Int32. Não corri muito atrás de "resolver" isso pela
 questão do tempo, então o código ficou mais feio do que poderia.
 
+### Testes
+
+Não escrevi specs para as Entities, pois são "POCOs" (Plain Old Crystal
+Objects), nem para os Containers, pois apenas facilitam o uso das bibliotecas
+em desenvolvimento.
+
+Escrevi os testes pros Controllers acessando direto o endpoint, como um teste
+de integração, para não ter que simular o `env` (contexto HTTP) do Kemal.
+
+Não usei nenhuma lib para fazer factories ou fixtures pois todas que testei
+estavam bem bugadas :P Por conta disso, faço a inicialização do ambiente de
+teste de forma verbosa, criando todos os objetos e inserindo-os no storage.
+
 ## Autor
 
 [Bruno Assis](https://github.com/[BrunoAssis])

@@ -1,6 +1,9 @@
 module Spotippos::Validators
   class CommonValidator
-    def initialize(@properties : JSON::Any | HTTP::Params)
+    def initialize(@properties : JSON::Any |
+                                 HTTP::Params |
+                                 Hash(String, Int32 | String) |
+                                 Hash(String, Int32))
       @errors = [] of String | Nil
       validate
     end
