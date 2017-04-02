@@ -6,10 +6,17 @@ require "../../repositories/property_repository"
 module Spotippos::Controllers::Properties
   class CreateAction < ControllerAction
     def call
-      if @env.request.body == nil
+      begin
+        body = @env.request.body.as(IO).gets_to_end
+      rescue TypeCastError
+        respond_with_error(@env, 400, "Bad Request: Missing payload.")
+      end
+
+      body = body.as(String)
+      if body.blank?
         respond_with_error(@env, 400, "Bad Request: Missing payload.")
       else
-        payload = JSON.parse(@env.request.body.to_s)
+        payload = JSON.parse(body)
         validator = Validators::PropertyPayloadValidator.new(payload)
 
         if validator.valid?
