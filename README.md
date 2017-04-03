@@ -8,7 +8,13 @@ Você precisa ter a linguagem [Crystal](https://crystal-lang.org) versão 0.21.1
 instalada para poder rodar ou compilar o projeto. Você também pode usar o
 Dockerfile incluso para [rodar direto no Docker](#para-rodar-no-docker).
 
-Você pode usar o atalho do Crystal para compilar e rodar direto:
+Instale as dependências:
+
+```bash
+crystal deps
+```
+
+Depois, você pode usar o atalho do Crystal para compilar e rodar direto:
 
 ```bash
 crystal ./src/spotippos.cr
